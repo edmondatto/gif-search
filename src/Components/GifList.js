@@ -1,6 +1,7 @@
 import React from 'react';
 import Gif from './Gif';
 import PropTyppes from 'prop-types';
+import NoGifs from "./NoGifs";
 
 const GifList = props => {
 
@@ -10,9 +11,12 @@ const GifList = props => {
   );
   
   return(
+    results.length ?
     <ul className="gif-list">
       { gifs }
-    </ul> 
+    </ul>
+      :
+    <NoGifs/>
   );
 };
 
