@@ -13,7 +13,12 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://api.giphy.com/v1/gifs/trending?api_key=pEC4gYDzDgd16U9oZVONW9uY6JVqAblU&limit=25&rating=G')
+
+
+  }
+
+  performSearch = (query) => {
+    axios.get(`https://api.giphy.com/v1/gifs/search?api_key=pEC4gYDzDgd16U9oZVONW9uY6JVqAblU&q=${query}&limit=24&offset=0&rating=G&lang=en`)
       .then(response => {
         this.setState({
           gifs: response.data.data,
@@ -22,7 +27,7 @@ export default class App extends Component {
       .catch(error => {
         console.log('Error fetching and parsing data', error)
       })
-  }
+  };
 
   render() { 
     return (
@@ -30,11 +35,11 @@ export default class App extends Component {
         <div className="main-header">
           <div className="inner">
             <h1 className="main-title">GifSearch</h1>
-            <SearchForm />      
+            <SearchForm onSearch={this.performSearch}/>
           </div>   
         </div>    
         <div className="main-content">
-          <GifList />
+          <GifList data={this.state.gifs}/>
         </div>
       </div>
     );
